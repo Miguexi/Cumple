@@ -13,12 +13,22 @@
         background: black;
         color: white;
     }
-    h1 {
-        font-size: 60px;
-        color: #ffccff;
+    .titulo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
         margin-top: 50px;
+        animation: bajarTexto 1s ease-out;
+    }
+    .titulo h1 {
+        font-size: 60px;
         text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff66ff, 0 0 30px #ff99ff;
-        animation: parpadeo 1.5s infinite alternate, bajarTexto 1s ease-out;
+        animation: parpadeo 1.5s infinite alternate;
+        margin: 0;
+    }
+    .titulo span {
+        font-size: 60px;
     }
     @keyframes parpadeo {
         from { text-shadow: 0 0 10px #ff00ff, 0 0 20px #ff66ff, 0 0 30px #ff99ff; }
@@ -87,16 +97,40 @@
         0% { transform: scale(0.5); opacity: 0; }
         100% { transform: scale(1); opacity: 1; }
     }
+
+    /* Arcoíris en remolino */
+    .arcoiris {
+        position: fixed;
+        top: 50%;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        z-index: 2;
+        display: none;
+        pointer-events: none;
+    }
+    .arcoiris.left {
+        left: -100px;
+    }
+    .arcoiris.right {
+        right: -100px;
+    }
 </style>
 </head>
 <body>
 
-<h1>🎂 ¡Feliz Cumpleaños Guarrillaaaaa! 🎂</h1>
-<p>Haz clic en el botón 🎉</p>
+<!-- Título con tarta y arcoíris -->
+<div class="titulo" id="titulo">
+    <span>🎂</span>
+    <h1>¡Feliz Cumpleaños, Juan!</h1>
+    <span>🌈</span>
+</div>
+
+<p id="subtitulo">Haz clic en el botón para tu sorpresa 🎉</p>
 <button onclick="iniciaSorpresa()">🎁 Ver Sorpresa</button>
 
 <!-- Mensaje flotante -->
-<div class="mensaje" id="mensajeFeliz">¡Que cumplas muchos maaas! ✨</div>
+<div class="mensaje" id="mensajeFeliz">¡Que todos tus deseos se hagan realidad! ✨</div>
 
 <!-- Vídeo de fondo -->
 <iframe id="videoFondo" src="" frameborder="0"
@@ -106,8 +140,12 @@
 <!-- Confeti -->
 <canvas id="confeti"></canvas>
 
+<!-- Arcoíris en remolino -->
+<div class="arcoiris left" id="arcoLeft"></div>
+<div class="arcoiris right" id="arcoRight"></div>
+
 <script>
-// Configuración confeti
+// Confeti
 const canvas = document.getElementById('confeti');
 const ctx = canvas.getContext('2d');
 let piezas = [];
@@ -140,6 +178,10 @@ function dibujarConfeti() {
 }
 
 function iniciaSorpresa() {
+    // Ocultar título y subtítulo
+    document.getElementById('titulo').style.display = 'none';
+    document.getElementById('subtitulo').style.display = 'none';
+
     // Lanzar confeti
     piezas = Array.from({length: 200}, () => new Confeti());
     setInterval(dibujarConfeti, 20);
@@ -153,6 +195,24 @@ function iniciaSorpresa() {
     // Mostrar mensaje flotante
     const mensaje = document.getElementById("mensajeFeliz");
     mensaje.style.display = "block";
+
+    // Crear arcoíris en remolino
+    const left = document.getElementById('arcoLeft');
+    const right = document.getElementById('arcoRight');
+    left.style.display = 'block';
+    right.style.display = 'block';
+    
+    // Animación simple de rotación
+    let angle = 0;
+    setInterval(() => {
+        angle += 2;
+        left.style.transform = `rotate(${angle}deg)`;
+        right.style.transform = `rotate(${-angle}deg)`;
+    }, 30);
+
+    // Estilo arcoíris con gradiente
+    left.style.background = 'conic-gradient(red, orange, yellow, green, blue, indigo, violet, red)';
+    right.style.background = 'conic-gradient(red, orange, yellow, green, blue, indigo, violet, red)';
 }
 </script>
 
