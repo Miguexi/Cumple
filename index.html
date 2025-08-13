@@ -13,6 +13,7 @@
         background: black;
         color: white;
     }
+    /* Título con tarta y arcoíris */
     .titulo {
         display: flex;
         justify-content: center;
@@ -38,15 +39,13 @@
         0% { transform: translateY(-200px); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
     }
+    /* Subtítulo */
     p {
         font-size: 22px;
         text-shadow: 1px 1px 5px black;
-        animation: fadeIn 2s ease-in;
+        margin-top: 20px;
     }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
+    /* Botón */
     button {
         padding: 15px 25px;
         font-size: 24px;
@@ -66,6 +65,7 @@
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.1); }
     }
+    /* Vídeo de fondo */
     #videoFondo {
         position: fixed;
         top: 0;
@@ -76,6 +76,7 @@
         z-index: -1;
         display: none;
     }
+    /* Confeti */
     canvas {
         position: fixed;
         top: 0;
@@ -83,6 +84,7 @@
         pointer-events: none;
         z-index: 1;
     }
+    /* Mensaje flotante */
     .mensaje {
         position: absolute;
         top: 20%;
@@ -97,23 +99,25 @@
         0% { transform: scale(0.5); opacity: 0; }
         100% { transform: scale(1); opacity: 1; }
     }
-
-    /* Arcoíris en remolino */
+    /* Arcoíris pequeños parpadeando */
     .arcoiris {
         position: fixed;
         top: 50%;
-        width: 200px;
-        height: 200px;
+        width: 60px;
+        height: 60px;
         border-radius: 50%;
         z-index: 2;
         display: none;
         pointer-events: none;
+        background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red);
+        animation: parpadeoArco 2s infinite alternate;
     }
-    .arcoiris.left {
-        left: -100px;
-    }
-    .arcoiris.right {
-        right: -100px;
+    .arcoiris.left { left: 10px; transform: translateY(-50%); }
+    .arcoiris.right { right: 10px; transform: translateY(-50%); }
+    @keyframes parpadeoArco {
+        0% { opacity: 0.3; }
+        50% { opacity: 0.7; }
+        100% { opacity: 0.3; }
     }
 </style>
 </head>
@@ -140,7 +144,7 @@
 <!-- Confeti -->
 <canvas id="confeti"></canvas>
 
-<!-- Arcoíris en remolino -->
+<!-- Arcoíris pequeños parpadeando -->
 <div class="arcoiris left" id="arcoLeft"></div>
 <div class="arcoiris right" id="arcoRight"></div>
 
@@ -187,7 +191,7 @@ function iniciaSorpresa() {
     setInterval(dibujarConfeti, 20);
 
     // Mostrar vídeo de fondo
-    const videoID = "lRGr0ISBBYA"; // ID del Shorts
+    const videoID = "lRGr0ISBBYA";
     const iframe = document.getElementById("videoFondo");
     iframe.src = `https://www.youtube.com/embed/${videoID}?autoplay=1&mute=0&controls=0&loop=1&playlist=${videoID}`;
     iframe.style.display = "block";
@@ -196,23 +200,9 @@ function iniciaSorpresa() {
     const mensaje = document.getElementById("mensajeFeliz");
     mensaje.style.display = "block";
 
-    // Crear arcoíris en remolino
-    const left = document.getElementById('arcoLeft');
-    const right = document.getElementById('arcoRight');
-    left.style.display = 'block';
-    right.style.display = 'block';
-    
-    // Animación simple de rotación
-    let angle = 0;
-    setInterval(() => {
-        angle += 2;
-        left.style.transform = `rotate(${angle}deg)`;
-        right.style.transform = `rotate(${-angle}deg)`;
-    }, 30);
-
-    // Estilo arcoíris con gradiente
-    left.style.background = 'conic-gradient(red, orange, yellow, green, blue, indigo, violet, red)';
-    right.style.background = 'conic-gradient(red, orange, yellow, green, blue, indigo, violet, red)';
+    // Mostrar arcoíris pequeños
+    document.getElementById('arcoLeft').style.display = 'block';
+    document.getElementById('arcoRight').style.display = 'block';
 }
 </script>
 
