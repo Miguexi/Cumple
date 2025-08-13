@@ -13,6 +13,7 @@
         background: black;
         color: white;
     }
+
     /* Título con tarta y arcoíris */
     .titulo {
         display: flex;
@@ -39,12 +40,14 @@
         0% { transform: translateY(-200px); opacity: 0; }
         100% { transform: translateY(0); opacity: 1; }
     }
+
     /* Subtítulo */
     p {
         font-size: 22px;
         text-shadow: 1px 1px 5px black;
         margin-top: 20px;
     }
+
     /* Botón */
     button {
         padding: 15px 25px;
@@ -58,13 +61,12 @@
         position: relative;
         animation: latido 1.2s infinite;
     }
-    button:hover {
-        background-color: #ff1493;
-    }
+    button:hover { background-color: #ff1493; }
     @keyframes latido {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.1); }
     }
+
     /* Vídeo de fondo */
     #videoFondo {
         position: fixed;
@@ -76,6 +78,7 @@
         z-index: -1;
         display: none;
     }
+
     /* Confeti */
     canvas {
         position: fixed;
@@ -84,6 +87,7 @@
         pointer-events: none;
         z-index: 1;
     }
+
     /* Mensaje flotante */
     .mensaje {
         position: absolute;
@@ -99,21 +103,19 @@
         0% { transform: scale(0.5); opacity: 0; }
         100% { transform: scale(1); opacity: 1; }
     }
-    /* Arcoíris pequeños parpadeando */
-    .arcoiris {
+
+    /* Arcoíris emoji laterales parpadeando */
+    .arcoLateral {
         position: fixed;
         top: 50%;
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
+        font-size: 60px;
         z-index: 2;
         display: none;
         pointer-events: none;
-        background: conic-gradient(red, orange, yellow, green, blue, indigo, violet, red);
         animation: parpadeoArco 2s infinite alternate;
     }
-    .arcoiris.left { left: 10px; transform: translateY(-50%); }
-    .arcoiris.right { right: 10px; transform: translateY(-50%); }
+    .arcoLateral#arcoLeft { left: 10px; transform: translateY(-50%); }
+    .arcoLateral#arcoRight { right: 10px; transform: translateY(-50%); }
     @keyframes parpadeoArco {
         0% { opacity: 0.3; }
         50% { opacity: 0.7; }
@@ -126,15 +128,15 @@
 <!-- Título con tarta y arcoíris -->
 <div class="titulo" id="titulo">
     <span>🎂</span>
-    <h1>¡Feliz Cumpleaños, Juan!</h1>
+    <h1>¡Feliz Cumpleaños mariconaaaa!</h1>
     <span>🌈</span>
 </div>
 
-<p id="subtitulo">Haz clic en el botón para tu sorpresa 🎉</p>
+<p id="subtitulo">Haz clic en el botón 🎉</p>
 <button onclick="iniciaSorpresa()">🎁 Ver Sorpresa</button>
 
 <!-- Mensaje flotante -->
-<div class="mensaje" id="mensajeFeliz">¡Que todos tus deseos se hagan realidad! ✨</div>
+<div class="mensaje" id="mensajeFeliz">¡Te peine un payo a peos! ✨</div>
 
 <!-- Vídeo de fondo -->
 <iframe id="videoFondo" src="" frameborder="0"
@@ -144,9 +146,9 @@
 <!-- Confeti -->
 <canvas id="confeti"></canvas>
 
-<!-- Arcoíris pequeños parpadeando -->
-<div class="arcoiris left" id="arcoLeft"></div>
-<div class="arcoiris right" id="arcoRight"></div>
+<!-- Arcoíris emoji parpadeando -->
+<span class="arcoLateral" id="arcoLeft">🌈</span>
+<span class="arcoLateral" id="arcoRight">🌈</span>
 
 <script>
 // Confeti
@@ -182,9 +184,10 @@ function dibujarConfeti() {
 }
 
 function iniciaSorpresa() {
-    // Ocultar título y subtítulo
+    // Ocultar título, subtítulo y botón
     document.getElementById('titulo').style.display = 'none';
     document.getElementById('subtitulo').style.display = 'none';
+    document.querySelector('button').style.display = 'none';
 
     // Lanzar confeti
     piezas = Array.from({length: 200}, () => new Confeti());
@@ -197,10 +200,9 @@ function iniciaSorpresa() {
     iframe.style.display = "block";
 
     // Mostrar mensaje flotante
-    const mensaje = document.getElementById("mensajeFeliz");
-    mensaje.style.display = "block";
+    document.getElementById("mensajeFeliz").style.display = "block";
 
-    // Mostrar arcoíris pequeños
+    // Mostrar arcoíris emoji laterales
     document.getElementById('arcoLeft').style.display = 'block';
     document.getElementById('arcoRight').style.display = 'block';
 }
